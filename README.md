@@ -95,6 +95,5 @@ The `/results` folder contains CSV exports of BigQuery queries:
 - **best_selling_products.csv** → Top 10 products by revenue  
 - **customer_purchase_behavior.csv** → Top 10 customers by spending  
 - **monthly_sales_trend.csv** → Monthly revenue across years  
-
 These CSVs are directly queryable outputs for reproducibility. 
 ----
