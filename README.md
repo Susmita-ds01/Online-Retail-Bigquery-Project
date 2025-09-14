@@ -25,103 +25,76 @@ The goal is to uncover insights into **product sales**, **customer purchase beha
 
 ## 🚀 Problems Solved
 
+---
+
 ### 🔹 Problem 1: Best-Selling Products
 **Query:** Top 10 products by total revenue.  
+`SELECT Description AS product, ROUND(SUM(Quantity * UnitPrice), 2) AS total_revenue FROM your_project.your_dataset.Online_Retail WHERE Quantity > 0 GROUP BY product ORDER BY total_revenue DESC LIMIT 10;`
 
-SELECT 
-  Description AS product,
-  ROUND(SUM(Quantity * UnitPrice), 2) AS total_revenue
-FROM `your_project.your_dataset.Online_Retail`
-WHERE Quantity > 0 -- remove cancellations/returns
-GROUP BY product
-ORDER BY total_revenue DESC
-LIMIT 10;
+**Insight:** Identifies the most profitable products.  
+📂 **Result:** [results/best_selling_products.csv](results/best_selling_products.csv)  
 
+---
 
-**Insight:** Identifies the most profitable products.
-📂**Result:** results/best_selling_products.csv
+### 🔹 Problem 2: Customer Purchase Behavior
+**Query:** Top 10 customers by total spend, with rank.  
+`WITH customer_spend AS ( SELECT CustomerID, ROUND(SUM(Quantity * UnitPrice), 2) AS total_spent FROM your_project.your_dataset.Online_Retail WHERE Quantity > 0 GROUP BY CustomerID ) SELECT CustomerID, total_spent, RANK() OVER (ORDER BY total_spent DESC) AS spend_rank FROM customer_spend ORDER BY total_spent DESC LIMIT 10;`
 
-🔹**Problem 2:** Customer Purchase Behavior
+**Insight:** Highlights high-value customers and revenue concentration.  
+📂 **Result:** [results/customer_purchase_behavior.csv](results/customer_purchase_behavior.csv)  
 
-**Query:** Top 10 customers by total spend, with rank.
+---
 
-WITH customer_spend AS (
-  SELECT 
-    CustomerID,
-    ROUND(SUM(Quantity * UnitPrice), 2) AS total_spent
-  FROM `your_project.your_dataset.Online_Retail`
-  WHERE Quantity > 0
-  GROUP BY CustomerID
-)
-SELECT 
-  CustomerID,
-  total_spent,
-  RANK() OVER (ORDER BY total_spent DESC) AS spend_rank
-FROM customer_spend
-ORDER BY total_spent DESC
-LIMIT 10;
+### 🔹 Problem 3: Monthly Sales Trend
+**Query:** Revenue trends across year/month.  
+`SELECT EXTRACT(YEAR FROM InvoiceDate) AS year, EXTRACT(MONTH FROM InvoiceDate) AS month, ROUND(SUM(Quantity * UnitPrice), 2) AS monthly_revenue FROM your_project.your_dataset.Online_Retail WHERE Quantity > 0 GROUP BY year, month ORDER BY year, month;`
 
+**Insight:** Useful for detecting seasonality and demand spikes.  
+📂 **Result:** [results/monthly_sales_trend.csv](results/monthly_sales_trend.csv)  
 
-**Insight:** Highlights high-value customers and revenue concentration.
-📂**Result:** results/customer_purchase_behavior.csv
+---
 
-🔹**Problem 3:** Monthly Sales Trend
+## 📂 Repository Structure
 
-**Query:** Revenue trends across year/month.
-
-SELECT 
-  EXTRACT(YEAR FROM InvoiceDate) AS year,
-  EXTRACT(MONTH FROM InvoiceDate) AS month,
-  ROUND(SUM(Quantity * UnitPrice), 2) AS monthly_revenue
-FROM `your_project.your_dataset.Online_Retail`
-WHERE Quantity > 0
-GROUP BY year, month
-ORDER BY year, month;
-
-
-**Insight:** Useful for detecting seasonality and demand spikes.
-📂**Result:** results/monthly_sales_trend.csv
-
-📂**Repository Structure**
 online-retail-analysis/
 │
 ├── data/
-│   ├── Online_Retail_v1.csv     # Raw dataset (if allowed, else ignored)
-│   └── README.md                # Dataset source info
+│ ├── Online_Retail_v1.csv # Raw dataset (if allowed, else ignored)
+│ └── README.md # Dataset source info
 │
 ├── queries/
-│   ├── best_selling_products.sql
-│   ├── customer_purchase_behavior.sql
-│   ├── monthly_sales_trend.sql
+│ ├── best_selling_products.sql
+│ ├── customer_purchase_behavior.sql
+│ └── monthly_sales_trend.sql
 │
 ├── results/
-│   ├── best_selling_products.csv
-│   ├── customer_purchase_behavior.csv
-│   └── monthly_sales_trend.csv
-│   └── README.md                # Explanation of CSV files
+│ ├── best_selling_products.csv
+│ ├── customer_purchase_behavior.csv
+│ ├── monthly_sales_trend.csv
+│ └── README.md # Explanation of CSV files
 │
 ├── notebooks/
-│   └── analysis.ipynb           # Jupyter Notebook with queries + charts
+│ └── analysis.ipynb # Jupyter Notebook with queries + charts
 │
 ├── images/
-│   └── sales_trend.png          # Example chart output
+│ └── sales_trend.png # Example chart output
 │
 ├── .gitignore
 ├── LICENSE
-├── README.md                    # Project documentation
+└── README.md # Project documentation
 
+yaml
+Copy code
 
+---
 
-📂 **Results:**
+## 📂 Results
 
-The results folder contains CSV exports of BigQuery queries:
+The `/results` folder contains CSV exports of BigQuery queries:  
 
-best_selling_products.csv → Top 10 products by revenue
+- **best_selling_products.csv** → Top 10 products by revenue  
+- **customer_purchase_behavior.csv** → Top 10 customers by spending  
+- **monthly_sales_trend.csv** → Monthly revenue across years  
 
-customer_purchase_behavior.csv → Top 10 customers by spending
-
-monthly_sales_trend.csv → Monthly revenue across years
-
-These CSVs are directly queryable outputs for reproducibility.
-
+These CSVs are directly queryable outputs for reproducibility. 
 ----
