@@ -55,7 +55,7 @@ The goal is to uncover insights into **product sales**, **customer purchase beha
 ---
 
 ## 📂 Repository Structure
-
+```
 online-retail-bigquery-analysis/
 │
 ├── data/
@@ -73,7 +73,7 @@ online-retail-bigquery-analysis/
 │
 └── README.md                       # project documentation
 
----
+```
 
 ## 📂 Results
 
