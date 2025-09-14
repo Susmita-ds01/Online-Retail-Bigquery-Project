@@ -56,35 +56,22 @@ The goal is to uncover insights into **product sales**, **customer purchase beha
 
 ## 📂 Repository Structure
 
-online-retail-analysis/
+online-retail-bigquery-analysis/
 │
 ├── data/
-│ ├── Online_Retail_v1.csv # Raw dataset (if allowed, else ignored)
-│ └── README.md # Dataset source info
+│   └── Online Retail.csv           # original dataset 
 │
-├── queries/
-│ ├── best_selling_products.sql
-│ ├── customer_purchase_behavior.sql
-│ └── monthly_sales_trend.sql
+├── queries/                        # BigQuery SQL queries
+│   ├── best_selling_products.sql
+│   ├── customer_purchase_behavior.sql
+│   └── monthly_sales_trend.sql
 │
-├── results/
-│ ├── best_selling_products.csv
-│ ├── customer_purchase_behavior.csv
-│ ├── monthly_sales_trend.csv
-│ └── README.md # Explanation of CSV files
+├── results/                        # CSV outputs of queries
+│   ├── best_selling_products.csv
+│   ├── customer_purchase_behavior.csv
+│   └── monthly_sales_trend.csv
 │
-├── notebooks/
-│ └── analysis.ipynb # Jupyter Notebook with queries + charts
-│
-├── images/
-│ └── sales_trend.png # Example chart output
-│
-├── .gitignore
-├── LICENSE
-└── README.md # Project documentation
-
-yaml
-Copy code
+└── README.md                       # project documentation
 
 ---
 
@@ -95,6 +82,5 @@ The `/results` folder contains CSV exports of BigQuery queries:
 - **best_selling_products.csv** → Top 10 products by revenue  
 - **customer_purchase_behavior.csv** → Top 10 customers by spending  
 - **monthly_sales_trend.csv** → Monthly revenue across years  
-
 These CSVs are directly queryable outputs for reproducibility. 
 ----
